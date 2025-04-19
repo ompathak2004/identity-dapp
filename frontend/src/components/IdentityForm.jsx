@@ -36,7 +36,11 @@ const IdentityForm = () => {
   const fetchUserData = async (userAddress) => {
     try {
       setIsLoading(true);
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum, {
+        ensAddress: null,  // Disable ENS resolution
+        name: 'hardhat',
+        chainId: 31337
+      });
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
       
@@ -61,7 +65,11 @@ const IdentityForm = () => {
 
     try {
       setIsLoading(true);
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum, {
+        ensAddress: null,  // Disable ENS resolution
+        name: 'hardhat',
+        chainId: 31337
+      });
       await provider.send("eth_requestAccounts", []);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
